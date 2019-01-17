@@ -2,12 +2,37 @@
   <h1>Form</h1>
   <form>
     <div class="form-group">
-      <label>Name</label>
-      <input type="text" class="form-control">
+      <label>Quantity Sold (Litres)</label>
+      <input type="number" class="form-control" id="quantity sold"
+       min="1" max="150" placeholder="Enter litres sold">
+    </div>
+    <div class="form-group">
+      <label>Amount Collected (Naira)</label>
+      <input type="number" class="form-control" id="amount"
+       min="1" max="50000" placeholder="Naira collected from customer">
+    </div>
+    <div class="row">
+      <!-- add: if available, auto suggest to user -->
+      <div class="col">
+        <label>License Plate</label>
+        <input type="text" class="form-control" placeholder="XXXXXXXX" inputsize="8" id="license plate">
+      </div>
+      <div class="col">
+        <label>Customer Type</label>
+        <select class="form-control">
+          <option value="1" selected>Private Car</option>
+          <option value="2">Public Car</option>
+          <option value="3">Walk-in</option>
+        </select>
+      </div>
     </div>
   </form>
 
-  <button class="btn btn-primary">Submit</button> 
+  <div class="form-group row">
+    <div class="col-sm-10">
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+  </div>
 </div>
 
 <router-outlet></router-outlet>

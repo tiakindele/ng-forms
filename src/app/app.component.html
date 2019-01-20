@@ -1,30 +1,57 @@
 <div class ="container fluid">
-  <h1>Form</h1>
-  <form>
+  <h1>Transaction Form</h1>
+  <form #userForm="ngForm">
+
+    <!-- {{ userForm.value | json}}
+    <hr />
+    {{userModel | json}} -->
+
     <div class="form-group">
       <label>Quantity Sold (Litres)</label>
-      <input type="number" class="form-control" id="quantity sold"
-       min="1" max="150" placeholder="Enter litres sold">
+      <input type="number" required #quantity="ngModel" 
+      [class.is-invalid]="quantity.invalid && quantity.touched" class="form-control" 
+      name="quantity sold" [(ngModel)]="userModel.quantity" id="quantity sold" min=1 max=150 placeholder="Enter litres sold">
+      <small class="text-danger" [class.d-none]="quantity.valid || quantity.untouched">
+          Quantity must be between 1 - 150 litres.
+      </small>
     </div>
+    <!-- {{name.className}} -->
     <div class="form-group">
       <label>Amount Collected (Naira)</label>
-      <input type="number" class="form-control" id="amount"
-       min="1" max="50000" placeholder="Naira collected from customer">
+      <input type="number" required #amount="ngModel" 
+      [class.is-invalid]="amount.invalid && amount.touched" class="form-control" 
+      name="amount" [(ngModel)]="userModel.amount" id="amount" min=1 max=50000 placeholder="Naira collected from customer">
+      <small class="text-danger" [class.d-none]="amount.valid || amount.untouched">
+          Amount must be between 1 - 50,000 Naira.
+      </small>
     </div>
     <div class="row">
-      <!-- add: if available, auto suggest to user -->
+      <!-- add: if available, auto suggest to user 
+      AND is it a MUST to record license plate?-->
       <div class="col">
         <label>License Plate</label>
-        <input type="text" class="form-control" placeholder="XXXXXXXX" inputsize="8" id="license plate">
+        <input type="text" required #license="ngModel" pattern="^[a-zA-Z0-9]{8,8}$"
+        [class.is-invalid]="license.invalid && license.touched" class="form-control" 
+        name="license plate" [(ngModel)]="userModel.license" placeholder="XXXXXXXX" inputsize="8" id="license plate">
+        <small class="text-danger" [class.d-none]="license.valid || license.untouched">
+            License form: XXXXXXXX
+        </small>
       </div>
       <div class="col">
         <label>Customer Type</label>
-        <select class="form-control">
+        <select class="form-control" name="customer type" [(ngModel)]="userModel.customer">
           <option value="1" selected>Private Car</option>
           <option value="2">Public Car</option>
           <option value="3">Walk-in</option>
         </select>
       </div>
+    </div>
+    <div class="form-group">
+        <label>Date and Time</label>
+        <input class="form-control" name="datetime" ngModel="{{today | date:'medium'}}" type="text" placeholder="{{today | date:'medium'}}" readonly>
+        <small [class.d-none]="" id="datetimeHelpInline" class="text-muted">
+            Date and time are automatically recorded.
+        </small>
     </div>
   </form>
 
@@ -37,4 +64,5 @@
 
 <router-outlet></router-outlet>
 
-<!-- https://www.youtube.com/watch?v=xqqCPoEyoE0&list=PLC3y8-rFHvwhwL-XH04cHOpJnkgRKykFi&index=4 -->
+<!-- https://www.youtube.com/watch?v=xqqCPoEyoE0&list=PLC3y8-rFHvwhwL-XH04cHOpJnkgRKykFi&index=4 
+tutorial #5 tells us how bind data in groups with ngModel -->
